@@ -17,7 +17,7 @@ module.exports = {
         try {
             console.log(`Message from Andrew bot: ${message.content}`);
             let prompt = message.content.replace(/<@!?(\d+)>/, '').trim();
-            const model = 'openrouter/optimus-alpha';
+            const model = 'meta-llama/llama-4-scout:free';
             console.log(`\nModel used: ${model}, Location: ${message.guild.name} - ${message.channel.name}, Prompt: ${prompt}`);
 
             let context = "No context provided.";
