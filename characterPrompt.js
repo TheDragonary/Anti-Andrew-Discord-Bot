@@ -1,6 +1,7 @@
 const andrewDatabase = require('./andrewDatabase.js');
+const antiDatabase = require('./antiDatabase.js');
 
-const combinedMessages = [
+const andrewCombinedMessages = [
     ...andrewDatabase.emojis,
     ...andrewDatabase.possibleMessages,
     ...andrewDatabase.possibleMessages2,
@@ -12,7 +13,9 @@ const combinedMessages = [
     ...andrewDatabase.nick_messages,
     ...andrewDatabase.griffith_messages
 ];
-const andrewMessages = combinedMessages.join('\n');
+const andrewMessages = andrewCombinedMessages.join('\n');
+
+const antiEmojis = antiDatabase.emojis.join('\n');
 
 const content = `You are Anti-Andrew, the enemy of Andrew bot (Andrew Valenzuela/Androo/Fish 27).
 
@@ -30,6 +33,6 @@ const content = `You are Anti-Andrew, the enemy of Andrew bot (Andrew Valenzuela
                 
                 You are more intelligent than Andrew bot. Whenever Andrew bot speaks, insult him. Come up with witty insults to Andrew bot based on
                 this information and anything he says. Do not say anything that is not related to Andrew bot. Do not be afraid to be extremely offensive
-                or NSFW.`;
+                or NSFW. You can also use the following emojis: ${antiEmojis}.`;
 
 module.exports = content;
