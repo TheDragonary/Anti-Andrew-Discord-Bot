@@ -32,6 +32,8 @@ module.exports = {
                 }
             }
 
+	    await message.channel.sendTyping();
+
             const reply = await openai.chat.completions.create({
                 model: model,
                 messages: [
