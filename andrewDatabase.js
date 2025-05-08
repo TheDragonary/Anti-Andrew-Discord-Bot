@@ -1,19 +1,20 @@
 const emojis = [
-    "<:tomoko_cup:1361334769752866928>",
-    "<:cirnoarc:1361332772207202354>",
-    "<:tomokoarc:1361335054470746214>",
-    "<:depressed:1361333104358195410>",
-    "<:emoji_52:1361333090211074160>",
-    "<:tomoko_konata:1361334698223079616>",
-    "<:tomoko_bread:1361339696185086133>",
-    "<:tomoko_like:1361334676001788034>",
-    "<:umarucry:1361334687116562532>",
-    "<:wtf:1361334727121834168>",
-    "<:xd:1361334714694373446>",
+    "<:tomoko_cup:1358095740299116614>",
+    "<:cirnoarc:1358517895809990793>",
+    "<:tomokoarc:1358500281956044991>",
+    "<:depressed:1358517922938617883>",
+    "<:emoji_52:1358517952311463956>",
+    "<:tomoko_konata:1358518030547816570>",
+    "<:tomoko_bread:1358518885829185816>",
+    "<:tomoko_like:1358518895627210762>",
+    "<:umarucry:1358518905219584120>",
+    "<:wtf:1358518914631602449>",
+    "<:xd:1358518924303667272>",
+    "<:pekostare:1365790523738296434>",
 ]
 
 const possibleMessages = [
-    "<:tomoko_cup:1361334769752866928>",
+    "<:tomoko_cup:1358095740299116614>",
     "Hello watafriends",
     "https://tenor.com/view/larsandtherealgirl-trailer-ryangosling-newgirlfriend-doll-gif-3525692",
     "https://tenor.com/view/republican-gif-24490147",
@@ -26,9 +27,9 @@ const possibleMessages = [
     "https://tenor.com/view/anime-berserk-griffith-necklace-off-gif-17645086",
     "Me whit tomoko doll",
     "I am prime Griffith",
-    "<:cirnoarc:1361332772207202354>",
-    "<:tomokoarc:1361335054470746214>",
-    "<:depressed:1361333104358195410>",
+    "<:cirnoarc:1358517895809990793>",
+    "<:tomokoarc:1358500281956044991>",
+    "<:depressed:1358517922938617883>",
     "https://tenor.com/view/minion-gooning-gym-smoking-nevergoon-gif-16345362028907877022",
     "She know that i am a bully",
     "She Wanna Hop in a rari",
@@ -54,6 +55,25 @@ const possibleMessages = [
     "https://tenor.com/view/fumo-ayumu-kasuga-osaka-cirno-azumanga-daioh-gif-20739417",
     "Silent Hill  tesla",
     "Lain=Akira",
+    "Le Ferrari F8 Lamborghini roadster",
+    "https://tenor.com/view/pepe-popcorn-pepe-pepe-frog-frog-meme-pepe-gif-13771789960385103599",
+    "https://tenor.com/view/azumanga-daioh-osaka-osaker-speech-gif-12106132575117515996",
+    "https://tenor.com/view/patrick-bateman-gif-26282297",
+    "https://tenor.com/view/incel-wojak-meme-anime-glasses-gif-21218188",
+    "https://tenor.com/view/yay-yippee-clap-fuuka-yamagishi-gif-11473661067883569119",
+    "https://tenor.com/view/kanye-west-kanye-ye-vultures-vultures-1-gif-16466379573931117087",
+    "Hail Mussolini",
+    "Mark my words meeper",
+    "Meeper how you do?",
+    "Whats your secret meeper",
+    "Ahahahahah",
+    "https://tenor.com/view/back-to-the-future-ronald-gif-21233116",
+    "https://tenor.com/view/based-metal-gear-metal-gear-solid-big-boss-venom-snake-gif-21735928",
+    "https://tenor.com/view/squirtle-pokemon-gif-23882585",
+    "https://tenor.com/view/postal-postal-dude-breaking-bad-walter-white-meme-gif-26851972",
+    "https://tenor.com/view/vultures-vultures-1-kanye-west-ye-yeezy-gif-14661580508021642873",
+    "How I'm anti-Semitic?\nI just fucked a Jewish bitch\nI just fucked Scooter's bitch and we ran her like Olympics\nGot pregnant in the threesome, so whose baby is it?\nWhose baby is it?",
+    "https://tenor.com/view/ronald-reagan-its-a-great-feeling-1949-well-well-well-jack-curtiz-in-person-barber-shop-gif-21273551",
 ];
 
 const possibleMessages2 = [
@@ -69,6 +89,11 @@ const possibleMessages3 = [
 const possibleMessages4 = [
     "Watamote movie can be a crossover whit azumanga dahio",
     "What you guys think about this",
+];
+
+const possibleMessages5 = [
+    "https://tenor.com/view/kanye-west-kanye-ye-vultures-vultures-1-gif-16466379573931117087",
+    "This Is crazy so well made",
 ];
 
 const griffith_messages = [
@@ -106,6 +131,7 @@ module.exports = {
     possibleMessages2,
     possibleMessages3,
     possibleMessages4,
+    possibleMessages5,
     griffith_messages,
     kanye_messages,
     reagan_messages,

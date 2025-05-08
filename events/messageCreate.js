@@ -17,7 +17,7 @@ module.exports = {
         try {
             console.log(`Message from Andrew bot: ${message.content}`);
             let prompt = message.content.replace(/<@!?(\d+)>/, '').trim();
-            const model = 'deepseek/deepseek-chat-v3-0324:free';
+            const model = 'meta-llama/llama-4-maverick:free';
             console.log(`\nModel used: ${model}, Location: ${message.guild.name} - ${message.channel.name}, Prompt: ${prompt}`);
 
             let context = "No context provided.";
@@ -43,9 +43,12 @@ module.exports = {
                 ]
             }) 
 
-            const aiResponse = reply.choices[0]?.message?.content;
+            let aiResponse = reply.choices[0]?.message?.content;
             console.log(`\nAI response: ${aiResponse}`);
             if (aiResponse) {
+                if (aiResponse.length > 2000) {
+                    aiResponse = aiResponse.slice(0, 1997) + '...';
+                }
                 message.reply(aiResponse);
             }
         } catch (error) {
