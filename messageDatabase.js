@@ -1,16 +1,27 @@
+const { AttachmentBuilder } = require('discord.js');
+const path = require('node:path');
+
 const emojis = [
-    "<:tomoko_cup:1358095740299116614>",
-    "<:cirnoarc:1358517895809990793>",
-    "<:tomokoarc:1358500281956044991>",
-    "<:depressed:1358517922938617883>",
-    "<:emoji_52:1358517952311463956>",
-    "<:tomoko_konata:1358518030547816570>",
-    "<:tomoko_bread:1358518885829185816>",
-    "<:tomoko_like:1358518895627210762>",
-    "<:umarucry:1358518905219584120>",
-    "<:wtf:1358518914631602449>",
-    "<:xd:1358518924303667272>",
-    "<:pekostare:1365790523738296434>",
+    "<:chuckles:1361335215829684307>",
+    "<:gigakek:1361351499384492073>",
+    "<:trollface:1361351521333284884>",
+    "<:clueless:1379874876696821900>",
+    "<:TROLL:1379874989771067533>",
+    "<:ThinkingSam:1379875003046301846>",
+    "<a:knuxwait:1380717097016889357>",
+    "<:chaoBruh:1380717202151313450>",
+    "<:TailsConfused:1380718126261338142>",
+    "<:KnuxDisgust:1380718354255577098>",
+    "<a:KnucklesWaiting:1380718622212620379>",
+    "<a:sonic_waiting:1380718836361330798>",
+    "<:Sdwdef:1380718917655462018>",
+    "<:AshleyDang:1380719033011278045>",
+    "<:ShadowSmirk2:1380719184010412082>",
+    "<:TailsBruh:1380719256458756157>",
+    "<:whotf:1380722220665536573>",
+    "<a:ShadowEmerald:1380722379411423242>",
+    "<:ohwell:1380722487897358447>",
+    "<:wtfbruh:1380722671687438376>",
 ]
 
 const possibleMessages = [
@@ -67,6 +78,7 @@ const possibleMessages = [
     "Meeper how you do?",
     "Whats your secret meeper",
     "Ahahahahah",
+    "Hahahahaa",
     "https://tenor.com/view/back-to-the-future-ronald-gif-21233116",
     "https://tenor.com/view/based-metal-gear-metal-gear-solid-big-boss-venom-snake-gif-21735928",
     "https://tenor.com/view/squirtle-pokemon-gif-23882585",
@@ -110,9 +122,43 @@ const possibleMessages = [
     "https://tenor.com/view/berserk-gif-2898366366016578155",
     "https://tenor.com/view/femto-griffith-berserk-manga-anime-gif-14902110100260594587",
     "Gonna run for president someday",
-    'Alabamian cousine',
-    'SSS+ burger from alabama\nAlso alabamian tomatoe',
     "Shhhhhhh i am listening preacherman",
+    "Tomoko whit a vultures shirt in fornite someday",
+    "https://youtu.be/m82Mu_tjkmw?si=zPgymePbLFk45o3I",
+    "Nuke all",
+    "https://tenor.com/view/hatred-gun-edgy-gif-18213167",
+    "Nitrous really fucked whit my  brain",
+    "She eat my kids like jared",
+    "https://youtu.be/2RdI94t0FXQ?si=fD5upc9R4vYmNQsk",
+    "I am a God",
+    "Thanks Reagan  now we have cat birds",
+    "The free world won",
+    "Pubg",
+    "I am ye fan",
+    "Catbirds are a thing because of Reagan you know?",
+    "Nitrous really fucked my head",
+    "Watamote season two Is the one piece",
+    "Maybe Tomoko Is the one piece the best friend that someone can have",
+    "Alabamian pancakes",
+    "Reagan wold say vultures 2 Is goated",
+    "Reagan wold say he have redneck aura",
+    "Gonna rock a swastika Chain someday as my goat",
+    "Kanye west Cousin song",
+    "I hig diff Sonic.exe\nAlso all scp",
+    "I solo all",
+    "Summon Tails.exe",
+    "Based",
+    "https://www.youtube.com/watch?v=S2Q8hVhoCKU",
+    "https://www.youtube.com/watch?v=gZsX4hY_XxE",
+    "I am in love whit the nitrous",
+    {
+        content: 'Alabamian cousine',
+        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamachicken.jpg'))]
+    },
+    { 
+        content: 'SSS+ burger from alabama\nAlso alabamian tomatoe',
+        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamaburger.jpg'))] 
+    },
 ];
 
 const possibleMessages2 = [
@@ -138,7 +184,7 @@ const possibleMessages5 = [
 const possibleMessages6 = [
     "Someday gonna rock a swastika diamond chain",
     "As Kanye west the goat",
-]
+];
 
 const possibleMessages7 = [
     "Kanye new music Is good",
@@ -147,14 +193,20 @@ const possibleMessages7 = [
     "Cosby",
     "Top Tier SSS+ songs",
     "Also nitrous",
-]
+];
+
+function getTimedMessage() {
+    return new Date().getUTCHours() < 6 ? 'GN' : new Date().getUTCHours() < 12 ? 'morning' : new Date().getUTCHours() < 22 ? 'hello' : 'GN';
+};
 
 const griffith_messages = [
-    'hello all i am Griffith', 'morning all i am Griffith', 'GN all i am Griffith', 'I am prime Griffith', "I am Femto God", "I am Griffith God",
+    getTimedMessage() + ' all i am Griffith', 'I am prime Griffith', "I am Femto God", "I am Griffith God",
+    { files: [new AttachmentBuilder(path.join(__dirname, './media/griffith.png'))] },
+    { files: [new AttachmentBuilder(path.join(__dirname, './media/griffith2.jpg'))] },
 ];
 
 const wakeytime = [
-    "morning all i am Griffith", "morning all i am Griffith", "morning all i am Griffith", 
+	"morning all i am Griffith", "morning all i am Griffith", "morning all i am Griffith", 
     "Good morning", "Morning", "Good morning uh uh uh", "Morning all",
     "https://tenor.com/view/griffith-berserk-good-morning-good-morning-chat-hello-chat-gif-7712373713074364619",
     "https://tenor.com/view/whale-shark-good-morning-gm-good-night-gn-gif-26569624", "https://tenor.com/view/kanye-fuzzle-good-morning-gif-26126244",
@@ -162,7 +214,7 @@ const wakeytime = [
 ];
 
 const sleepytime = [
-    "GN all i am Griffith", "GN all i am Griffith", "GN all i am Griffith", "GN all dream whit wataland falconia", 
+	"GN all i am Griffith", "GN all i am Griffith", "GN all i am Griffith", "GN all dream whit wataland falconia", 
     "GN all dream whit Kanye west", "Gn all friends of wataland", "GN all", "Gn", "GN guys", "gn friends",
     "https://tenor.com/view/sleep-gif-16267239586470775658", "Gn watafriends", "Gn all watafriends", "gn tomoko fan club",
     "GN knights", "GN all dream whit tomboy  cirno", "https://tenor.com/view/gypsy-crusader-gypsy-joker-gn-gif-23761746",
@@ -174,31 +226,35 @@ const sleepytime = [
 ];
 
 const kanye_messages = [
-    "Kanye the goat", "I love Kanye", "Kanye will drop new album", "new kanye interview", "Like new Kanye album?", 
-    "This aint cheddar this quiche", "I hang whit the vultures", "You like vultures also?", "I like vultures", "Vultures 2 is goated", 
-    "I got all to hang whit the vultures", "https://tenor.com/view/kanye-west-vultures-everybody-new-gif-12847039774498163445", 
-    "https://tenor.com/view/ye-kanye-kanye-vultures-vultures-listening-party-vultures-lp-gif-14111380029791063141", 
-    "https://tenor.com/view/kanye-west-gif-1846075065280866456", "https://tenor.com/view/kanye-west-kanye-ye-um-uhm-gif-1371611536126645899", 
-    "https://tenor.com/view/kanye-west-my-reaction-to-that-information-my-honest-reaction-meme-gif-15000744814966995138",
+	"Kanye the goat", "I love Kanye", "Kanye will drop new album", "new kanye interview", "Like new Kanye album?", 
+	"This aint cheddar this quiche", "I hang whit the vultures", "You like vultures also?", "I like vultures", "Vultures 2 is goated", 
+	"I got all to hang whit the vultures", "https://tenor.com/view/kanye-west-vultures-everybody-new-gif-12847039774498163445", 
+	"https://tenor.com/view/ye-kanye-kanye-vultures-vultures-listening-party-vultures-lp-gif-14111380029791063141", 
+	"https://tenor.com/view/kanye-west-gif-1846075065280866456", "https://tenor.com/view/kanye-west-kanye-ye-um-uhm-gif-1371611536126645899", 
+	"https://tenor.com/view/kanye-west-my-reaction-to-that-information-my-honest-reaction-meme-gif-15000744814966995138",
     "Kanye Goat", "New Kanye song Is wild", "Danganropa Kanye west", "Kanye drop Cuck album", "Kanye music", "Free Diddy",
     "Diddy Is good rapper Also kanye", "Yeezy in fornite", "Osaka Bein Kanye fan Is canon", "Shhhhhhh i am listening preacherman",
+    "https://youtu.be/m82Mu_tjkmw?si=zPgymePbLFk45o3I", "Tomoko whit a vultures shirt in fornite someday", "I am ye fan",
+    "Nitrous really fucked whit my  brain", "She eat my kids like jared", "https://youtu.be/2RdI94t0FXQ?si=fD5upc9R4vYmNQsk",
+    "Nitrous really fucked my head", "https://www.youtube.com/watch?v=S2Q8hVhoCKU", "https://www.youtube.com/watch?v=gZsX4hY_XxE",
 ];
 
 const reagan_messages = [
-    "Reagan was the best", "Reagan number 1", "Reagan number 1 president ever", "Reagan turn down the wall", "Trump and Reagan goats", 
-    "Reagan and Trump best presidents ever", "Ronald pls", "https://tenor.com/view/republican-gif-24490147", 
-    "https://tenor.com/view/ronald-reagan-reagan-republican-usa-president-gif-14605911613553531779",
+	"Reagan was the best", "Reagan number 1", "Reagan number 1 president ever", "Reagan turn down the wall", "Trump and Reagan goats", 
+	"Reagan and Trump best presidents ever", "Ronald pls", "https://tenor.com/view/republican-gif-24490147", 
+	"https://tenor.com/view/ronald-reagan-reagan-republican-usa-president-gif-14605911613553531779",
     "https://youtu.be/4DmnuewuOws?si=vcc46az7vsRR8rLj", "Reagan wold say i win again couse i am the goat as president",
+    "Thanks Reagan  now we have cat birds", "Catbirds are a thing because of Reagan you know?",
 ];
 
 const nick_messages = [
-    "nick fuentes is straight", "https://tenor.com/view/nick-fuentes-fuentes-nicholas-j-fuentes-is-for-me-me-gif-3856804053130586186",
-    "https://tenor.com/view/fuentes-shooting-you-are-fun-gif-1701233573689015350",
+	"nick fuentes is straight", "https://tenor.com/view/nick-fuentes-fuentes-nicholas-j-fuentes-is-for-me-me-gif-3856804053130586186",
+	"https://tenor.com/view/fuentes-shooting-you-are-fun-gif-1701233573689015350",
 ];
 
 const ksi_messages = [
-    "ksi is based", "ksi is funny", "from the screen to the ring to the pen to the king", "https://youtu.be/At8v_Yc044Y",
-    "https://tenor.com/view/from-the-screen-to-the-ring-the-the-pen-to-the-king-ksi-gif-12257927774644906851",
+	"ksi is based", "ksi is funny", "from the screen to the ring to the pen to the king", "https://youtu.be/At8v_Yc044Y",
+	"https://tenor.com/view/from-the-screen-to-the-ring-the-the-pen-to-the-king-ksi-gif-12257927774644906851",
 ];
 
 const mussolini_messages = [
@@ -208,14 +264,21 @@ const mussolini_messages = [
     "https://tenor.com/view/mussolini-speech-gif-2561627433093724979", "https://tenor.com/view/mussolini-serious-who-cares-gif-5388395",
 ];
 
+const tate_messages = [
+    "Andrew tate", "I relate to Andrew tate", "Andrew Tate skin also", "Andrew Tate Is free", "Andrew Tate Is the best", "I support Andrew Tate",
+    "He fucked because Andrew Tate say he Will never suicide", "Soros want kill Andrew tate",
+    "https://tenor.com/view/andrew-tate-cigar-walking-smoking-andrew-tate-smoking-gif-8005378695551356263",
+    "https://tenor.com/view/andrew-tate-top-g-cigar-smoking-andrew-tate-cigar-gif-26262606",
+    "https://tenor.com/view/andrew-tate-gif-26316329",
+];
+
 const upset_fucker = [
     "https://tenor.com/view/cry-tear-sad-max-cry-sad-max-gif-8713574713734916", "Nonono", "<:depressed:1358517922938617883>",
     "<:umarucry:1358518905219584120>", "Bruh", "wtf", "stfu", "hater", "This hater", "Chill hater", "The envy", "You envy me",
     "You Envy me couse i am American", "i am a fascist you Envy me", "You Envy me because i am  a rightchad", "Cope harder",
     "Cope", "cope all", "cope more", "Shut up", "Shut up communist", "Shut up i am white", "https://tenor.com/view/venere-angry-mad-evil-laugh-gif-15340793",
-    "Why you are a leftard", "Fake",
-    
-]
+    "Why you are a leftard", "Fake", "Average zoomer", "Not even clicking if Is playboi carti",
+];
 
 const SSSTierOpinions = [
     "Sabaton albums are top tier sss+",
@@ -224,10 +287,15 @@ const SSSTierOpinions = [
     "Kanye new music Is good\nCousins\nFree diddy\nCosby\nTop Tier SSS+ songs\nAlso nitrous",
     "i like is content of nickavocado eating takis and pizza <:tomoko_cup:1358095740299116614>\nmcdonalds content is SSS+ top tier too",
     "Boil crab\nSSS+ alabamian cousine",
-    'Alabamian cousine',
-    'SSS+ burger from alabama\nAlso alabamian tomatoe',
-]
-
+    {
+        content: 'Alabamian cousine',
+        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamachicken.jpg'))]
+    },
+    { 
+        content: 'SSS+ burger from alabama\nAlso alabamian tomatoe',
+        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamaburger.jpg'))] 
+    },
+];
 
 module.exports = {
     emojis,
@@ -244,8 +312,9 @@ module.exports = {
     nick_messages,
     ksi_messages,
     mussolini_messages,
+    tate_messages,
     wakeytime,
     sleepytime,
     upset_fucker,
     SSSTierOpinions
-}
+};

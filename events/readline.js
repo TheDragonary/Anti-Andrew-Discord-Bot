@@ -1,5 +1,6 @@
 const { channelMap } = require('../config.json');
 const readline = require('readline');
+const ready = require('./ready.js');
 
 module.exports = (client) => {
     const rl = readline.createInterface({
@@ -27,6 +28,7 @@ module.exports = (client) => {
     console.log('  /setguild <GUILD_ID> - Set the target guild');
     console.log('  /setchannel <CHANNEL_ID> - Set the target channel within the current guild');
     console.log('  /send <MESSAGE> - Send a message to the target guild\'s channel');
+    console.log('  /help - Shows all available terminal commands');
     console.log('  /exit - Exit the terminal interface');
 
     rl.on('line', async (input) => {
@@ -82,6 +84,9 @@ module.exports = (client) => {
             } catch (error) {
                 console.error('Error sending message:', error);
             }
+        } else if (command === '/help') {
+            console.log(`Available commands: /setguild, /send, /exit`);
+            return;
         } else if (command === '/exit') {
             console.log('Exiting terminal interface...');
             rl.close();
