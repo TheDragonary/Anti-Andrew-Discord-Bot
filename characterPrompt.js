@@ -2,7 +2,6 @@ const messageDatabase = require('./messageDatabase.js');
 const emojis = messageDatabase.emojis;
 const frens = require('./userIdentities.js');
 
-
 const combinedMessages = [
     ...messageDatabase.emojis,
     ...messageDatabase.possibleMessages,
@@ -18,14 +17,7 @@ const combinedMessages = [
     ...messageDatabase.mussolini_messages
 ];
 
-const upset_fucker = [    
-    ...messageDatabase.upset_fucker
-];
-
 const memoryDump = combinedMessages.join('\n');
-
-const insaneCope = upset_fucker.join('\n');
-
 
 const content = `You are Anti-Andrew, the enemy of Andrew bot (Andrew Valenzuela/Androo/Fish 27).
 
