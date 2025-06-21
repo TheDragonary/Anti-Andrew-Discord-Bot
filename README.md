@@ -2,7 +2,7 @@
  
 The enemy of [Andrew Bot](https://github.com/SpookedDoor/Andrew-Discord-Bot)
 
-In other words... not stupid. ~~(debatably)~~
+In other words... not stupid.
 
 This bot cooks every time Andrew bot says something absolutely moronic.
 
@@ -12,7 +12,9 @@ This bot cooks every time Andrew bot says something absolutely moronic.
 ----------------------------
 
 # BEFORE YOU USE THIS
-This bot REQUIRES [Andrew Bot](https://github.com/SpookedDoor/Andrew-Discord-Bot). You can manually modify the code to make it respond to anybody, or a similar bot, but by default, you NEED to have Andrew in your server for this bot to work, as he only responds to Andrew as-is.
+~~This bot REQUIRES [Andrew Bot](https://github.com/SpookedDoor/Andrew-Discord-Bot). You can manually modify the code to make it respond to anybody, or a similar bot, but by default, you NEED to have Andrew in your server for this bot to work, as he only responds to Andrew as-is.~~
+
+Bot is still best used with Andrew-Bot, but as of now he doesn't respond to Andrew anymore. But either way, he's gonna be able to respond to both Andrew AND others.
 
 Well, now for the content warning; Like Andrew-Bot, this bot was made as an inside-joke and it can say some hella out of pocket offensive shit. Also, unlike Andrew, this is purely a LLM as of writing this, and it will probably stay that way.
 
@@ -30,15 +32,18 @@ Or you could use Github Desktop! Doesn't matter, whatever gets the job done.
 
 ## THE DRAGON ON THE SLAYER ~~🤣🤣~~
 
-Because this bot requires Andrew-bot, I'll hope you already read the discord.js guide and everything. For the most part, the rest of this is MOSTLY copied from Andrew's version of this section, but there are a few cruical parts changed, since Anti-Andrew does NOT have the exact same file structure.
+~~Because this bot requires Andrew-bot, I'll hope you already read the discord.js guide and everything. For the most part, the rest of this is MOSTLY copied from Andrew's version of this section, but there are a few cruical parts changed, since Anti-Andrew does NOT have the exact same file structure.~~
 
-You're still required to install ``npm install discord.js openai dotenv`` in your terminal, though.
+For the most part, this proccess is the same as Andrew's aside from a few cruical details.
+
+You're still required to install ``npm install discord.js openai axios dotenv node-fetch`` in your terminal, though.
 
 Afterwards, you WILL need to have an ``.env`` file and have it look like this:
 ```js
 DISCORD_TOKEN=YOURTOKENHERE
-// The Openrouter key is optional IF you're going to use the local AI method.
-OPENROUTER_API_KEY=YOUR-OPENROUTERKEYHERE
+BRAVE_API_KEY=YOURKEYHERE
+GOOGLE_API_KEY=YOURKEYHERE
+GOOGLE_CSE_ID=YOURIDHERE
 ```
 And a ``config.json`` that looks something like this. 
 ```json
@@ -48,39 +53,29 @@ And a ``config.json`` that looks something like this.
 }
 ```
 
-As of now, Openrouter IS still supported for Anti-Andrew (not permanently, since it will soon mainly start to use local AI backends soon. Hell, I even use Anti with Kobold, but it's not yet the main method).
+~~As of now, Openrouter IS still supported for Anti-Andrew (not permanently, since it will soon mainly start to use local AI backends soon. Hell, I even use Anti with Kobold, but it's not yet the main method).~~
 
-If you're doing the Openrouter method, make sure to set your ``baseURL`` in ``./events/messageCreate.js`` to look something like this:  
-```dotenv
-    baseURL: "https://openrouter.ai/api/v1",
-    apiKey: process.env.OPENROUTER_API_KEY
-```
-And your model to be something like this:
-```dotenv
-const model = 'deepseek/deepseek-chat-v3-0324:free';
-```
-Of course, you can change the model to be whatever you want, as long as it's on [Openrouter](https://openrouter.ai/models).
-
------
+Chutes is now the default method. But Openrouter and KoboldCPP are still options. The instructions for them are already in ``aiSettings.js``.
 
 ### Local AI Method
-But if you want to use the local AI method (which is better), you'll of course have to use a local AI backend such as [KoboldCPP](https://github.com/LostRuins/koboldcpp). 
+If you want to use the local AI method, you'll of course have to use a local AI backend such as [KoboldCPP](https://github.com/LostRuins/koboldcpp). But more importantly, make sure to obtain an [AI model](https://huggingface.co/models?library=gguf&sort=trending), but of course make sure it's a GGUF and that your PC can handle it. (Which means you shouldn't bother with Deepseek unless your PC is EXTREMELY good. Just use Chutes or Openrouter for that.)  
 
-Once you have KoboldCPP installed and set up, make sure to set your ``baseURL`` to be the same as it is in ``./events/messageCreate.js``. It should look something like this:  
+For vision to work locally, download the correct [mmproj](https://huggingface.co/koboldcpp/mmproj/tree/main). For example, if you are using a model based on Llama3, download the one that says Llama3, then you would insert it into Loaded Files > Vision mmproj.
+
+Once you have KoboldCPP installed and set up, make sure to set your ``baseURL`` in ``./aiSettings.js``. It should look something like this:  
 ```dotenv js
 	baseURL: "http://localhost:5001/v1",
 	apiKey: "0"
 ```
 
-Then make sure the model is set to:
-```js
-const model = 'koboldcpp';
-```
+And then you make sure all the model variables are set to: ``"koboldcpp"``.
+
+It's as shrimple as that!
 
 ## Differences between the AI methods and which one you should choose
 Well, of course there's both pros and cons to the methods you choose, and I wouldn't blame you for being confused on which to choose.
 
-For instance, if your PC is lower end, I *would* recommend using Openrouter. But if your PC is more capable, then I'd recommend a local AI backend, like Kobold.
+For instance, if your PC is lower end, I recommend using Openrouter/Chutes. But if your PC is more capable, then I'd recommend a local AI backend, like Kobold.
 
 Now, let's start off with Openrouter's pros and cons.
 
@@ -128,4 +123,8 @@ If you choose to use Openrouter solely because of your PC or the convenience, th
 
 (Unfinished README. I'll continue this later, but for the most part all the important info is here lmao.)
 
+Editor's note: I had alotta bias towards Kobold at the time lmao. The other methods are just as good, if not more convenient and efficient. Chutes in particular is peak. It's free unlike Openrouter and it's also pretty solid. 
 
+I'll definitely need to give a bigger update on the README, but I wanted to at least do a quick update for the rework. Especially since it's MASSIVELY outdated now.
+
+![GAPNgWvXQAADpdI](https://github.com/user-attachments/assets/199b866c-274b-483b-a283-5b880d0cf70a)
