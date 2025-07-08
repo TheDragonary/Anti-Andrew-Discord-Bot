@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log('Loaded CHUTES_API_KEY:', process.env.CHUTES_API_KEY);
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
@@ -13,6 +15,7 @@ const commands = loadCommands(commandsPath);
 for (const command of commands) {
     client.commands.set(command.data.name, command);
 }
+
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));

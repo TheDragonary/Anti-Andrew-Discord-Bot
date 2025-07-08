@@ -1,28 +1,6 @@
 const { AttachmentBuilder } = require('discord.js');
 const path = require('node:path');
 
-const emojis = [
-    "<:chuckles:1361335215829684307>",
-    "<:gigakek:1361351499384492073>",
-    "<:trollface:1361351521333284884>",
-    "<:clueless:1379874876696821900>",
-    "<:TROLL:1379874989771067533>",
-    "<:ThinkingSam:1379875003046301846>",
-    "<a:knuxwait:1380717097016889357>",
-    "<:chaoBruh:1380717202151313450>",
-    "<:TailsConfused:1380718126261338142>",
-    "<:KnuxDisgust:1380718354255577098>",
-    "<a:KnucklesWaiting:1380718622212620379>",
-    "<a:sonic_waiting:1380718836361330798>",
-    "<:Sdwdef:1380718917655462018>",
-    "<:AshleyDang:1380719033011278045>",
-    "<:ShadowSmirk2:1380719184010412082>",
-    "<:TailsBruh:1380719256458756157>",
-    "<:whotf:1380722220665536573>",
-    "<a:ShadowEmerald:1380722379411423242>",
-    "<:ohwell:1380722487897358447>",
-    "<:wtfbruh:1380722671687438376>",
-]
 
 const possibleMessages = [
     "<:tomoko_cup:1358095740299116614>",
@@ -45,7 +23,6 @@ const possibleMessages = [
     "She know that i am a bully",
     "She Wanna Hop in a rari",
     "Preacherman an rari are +SSS Tier songs",
-    "Cope harder",
     "https://tenor.com/view/persona-persona3-minato-arisato-makoto-yuki-battle-gif-17813346",
     "-9999 watapoints",
     "average sonic fan ⬆️",
@@ -93,7 +70,7 @@ const possibleMessages = [
     "Boy dont play whit me you know i am fried",
     "https://tenor.com/view/griffith-berserk-seinen-manga-manga-seinen-gif-16052926",
     "https://tenor.com/view/pokemon-pokeani-anipoke-pokemon-horizons-shuckle-gif-1434229247519097369",
-    "https://youtu.be/4DmnuewuOws?si=vcc46az7vsRR8rLj",
+    "https://youtu.be/4DmnuewuOws",
     "New Kanye song Is wild",
     "Danganropa Kanye west",
     "i am spittin venom",
@@ -124,12 +101,12 @@ const possibleMessages = [
     "Gonna run for president someday",
     "Shhhhhhh i am listening preacherman",
     "Tomoko whit a vultures shirt in fornite someday",
-    "https://youtu.be/m82Mu_tjkmw?si=zPgymePbLFk45o3I",
     "Nuke all",
+    "Lain pls",
     "https://tenor.com/view/hatred-gun-edgy-gif-18213167",
     "Nitrous really fucked whit my  brain",
     "She eat my kids like jared",
-    "https://youtu.be/2RdI94t0FXQ?si=fD5upc9R4vYmNQsk",
+    "https://youtu.be/2RdI94t0FXQ",
     "I am a God",
     "Thanks Reagan  now we have cat birds",
     "The free world won",
@@ -151,6 +128,31 @@ const possibleMessages = [
     "https://www.youtube.com/watch?v=S2Q8hVhoCKU",
     "https://www.youtube.com/watch?v=gZsX4hY_XxE",
     "I am in love whit the nitrous",
+    "I'm in love whit the nitrous",
+    "While i try be king as shuckle the third",
+    "Nuke china",
+    "Gonna rule all someday\nAs Kanye west the goat",
+    "Nuke china from the Dam orbit\nSimple as that",
+    "I am Alien X",
+    "Hello\nCitizens of Wataland\nFalconia",
+    "I am european hooligan in my Hart",
+    "Black Yoshi nukin luigi",
+    "Hello guys",
+    "Tomoko haters irl\nRats",
+    "Buy a gun better",
+    "America number 1",
+    "USA USA USA",
+    "Nukes for all",
+    "Hitler ye and jesuschrist",
+    "https://www.youtube.com/watch?v=gZsX4hY_XxE",
+    "Listening Hitler ye and jesuschrist rn",
+    "Also listening rn Hitler ye and jesuschrist",
+    "Hitler ye an jesuschrist",
+    "I am Griffith in wataland",
+    "All caps ANDREW GOD",
+    "Wataland kingdom of falconia",
+    "Alabama best state",
+    "She like my nazi vibes\nShe now i am a bully",
     {
         content: 'Alabamian cousine',
         files: [new AttachmentBuilder(path.join(__dirname, './media/alabamachicken.jpg'))]
@@ -159,6 +161,7 @@ const possibleMessages = [
         content: 'SSS+ burger from alabama\nAlso alabamian tomatoe',
         files: [new AttachmentBuilder(path.join(__dirname, './media/alabamaburger.jpg'))] 
     },
+    { files: [new AttachmentBuilder(path.join(__dirname, './media/andrewx.jpg'))] },
 ];
 
 const possibleMessages2 = [
@@ -167,8 +170,8 @@ const possibleMessages2 = [
 ];
 
 const possibleMessages3 = [
-  "lain power: nuke",
-  "https://tenor.com/view/serial-experiments-lain-lain-anime-smug-anime-smile-gif-14038034",
+    "lain power: nuke",
+    "https://tenor.com/view/serial-experiments-lain-lain-anime-smug-anime-smile-gif-14038034",
 ];
 
 const possibleMessages4 = [
@@ -195,12 +198,55 @@ const possibleMessages7 = [
     "Also nitrous",
 ];
 
+const possibleMessages8 = [
+    "Yes i am a mad God",
+    "I am evil",
+    "As Kanye west the great",
+];
+
+const possibleMessages9 = [
+    "Watafriends power level top\n1- hellbey God\n2- lain\n3- Alien X  Andrew total  control\n4-Tomoko\n5- Andrew femto form\n6- trinke God\n7- Kanye west 1% of power\n8- Andrew bot Is a chaotic force too be recognize",
+    "Drago Is close to lain place 2 power he create  Andrew bot\nPeanut goddes Is at top 2 as lain",
+    "To use my Alien X form at total control i need to talk to the voices that's why i am top 3 i am at top 10 in my normal form\nBasically murloc npc",
+    "Also you see the power tierlist ?\nThougs?",
+];
+
+const possibleMessages10 = [
+    "Literally me\nIn school years ago",
+    "Then i become edgy\nThen a discord owner\nThen a ex discord owner",
+    "Then SpookedDoor become my right hand\nThen Trump won\nHappy history",
+];
+
+const possibleMessages11 = [
+    "I wannabe a tyrant",
+    "To rule all",
+    "I can be a tyrant an respect woman right?",
+];
+
+const possibleMessages12 = [
+    "I am a God like Sonic.exe",
+    "We should envite that Sonic here",
+    "Sonic.exe in watafriends",
+    "Legendary crossover",
+    "https://tenor.com/view/banner-gif-25494268",
+];
+
+// When adding new possible message lists, make sure to add them to exports, then update ready.js and characterPrompt.js
+
+// Messages that should be part of the AI's database but not be sent as random messages
+const notPossibleMessages = [
+    "User message: https://tenor.com/view/the-simpsons-bart-shock-electric-chair-gif-12706212\nAndrew's response: Me after lobotomy",
+    "User message: Banana-drew\nAndrew's response: Pog my own animatronic nickname\nA monkey animatronic from alabama",
+    "User message: ezgif-7-f82d4a7d07.gif\nAndrew's response: Tomoko haters irl\nRats",
+    'Alabamian cousine', 'SSS+ burger from alabama\nAlso alabamian tomatoe',
+];
+
 function getTimedMessage() {
     return new Date().getUTCHours() < 6 ? 'GN' : new Date().getUTCHours() < 12 ? 'morning' : new Date().getUTCHours() < 22 ? 'hello' : 'GN';
 };
 
 const griffith_messages = [
-    getTimedMessage() + ' all i am Griffith', 'I am prime Griffith', "I am Femto God", "I am Griffith God",
+    getTimedMessage() + ' all i am Griffith', 'I am prime Griffith', "I am Femto God", "I am Griffith God", "I am Griffith in wataland",
     { files: [new AttachmentBuilder(path.join(__dirname, './media/griffith.png'))] },
     { files: [new AttachmentBuilder(path.join(__dirname, './media/griffith2.jpg'))] },
 ];
@@ -218,11 +264,11 @@ const sleepytime = [
     "GN all dream whit Kanye west", "Gn all friends of wataland", "GN all", "Gn", "GN guys", "gn friends",
     "https://tenor.com/view/sleep-gif-16267239586470775658", "Gn watafriends", "Gn all watafriends", "gn tomoko fan club",
     "GN knights", "GN all dream whit tomboy  cirno", "https://tenor.com/view/gypsy-crusader-gypsy-joker-gn-gif-23761746",
-    "https://tenor.com/view/osaka-azuman-goodnight-gn-sleep-gif-24066064", 
+    "https://tenor.com/view/osaka-azuman-goodnight-gn-sleep-gif-24066064", "Goodnight kingdom of wataland falconia",
     "https://tenor.com/view/griffith-berserk-griffith-good-night-griffith-griffithlvr-berserk-gif-18377682904186629085",
     "https://tenor.com/view/griffith-berserk-good-night-chat-bye-chat-goodbye-chat-gif-4987401896551940413", 
     "https://tenor.com/view/osaka-azumanga-daioh-ayumu-kusaga-ayumu-good-night-gif-961306308588708616",
-
+    "Gn all dream whit me Bein the world ruler",
 ];
 
 const kanye_messages = [
@@ -234,17 +280,27 @@ const kanye_messages = [
 	"https://tenor.com/view/kanye-west-my-reaction-to-that-information-my-honest-reaction-meme-gif-15000744814966995138",
     "Kanye Goat", "New Kanye song Is wild", "Danganropa Kanye west", "Kanye drop Cuck album", "Kanye music", "Free Diddy",
     "Diddy Is good rapper Also kanye", "Yeezy in fornite", "Osaka Bein Kanye fan Is canon", "Shhhhhhh i am listening preacherman",
-    "https://youtu.be/m82Mu_tjkmw?si=zPgymePbLFk45o3I", "Tomoko whit a vultures shirt in fornite someday", "I am ye fan",
-    "Nitrous really fucked whit my  brain", "She eat my kids like jared", "https://youtu.be/2RdI94t0FXQ?si=fD5upc9R4vYmNQsk",
+    "Tomoko whit a vultures shirt in fornite someday", "I am ye fan", "https://www.youtube.com/watch?v=gZsX4hY_XxE",
+    "Nitrous really fucked whit my  brain", "She eat my kids like jared", "https://youtu.be/2RdI94t0FXQ",
     "Nitrous really fucked my head", "https://www.youtube.com/watch?v=S2Q8hVhoCKU", "https://www.youtube.com/watch?v=gZsX4hY_XxE",
+    "Kanye plays 69D chess whit all", "Kanye west", "I am evil As Kanye west the great", "Kanye new music Is good",
+    "Someday gonna rock a swastika diamond chain As Kanye west the goat", "Hitler ye and jesuschrist", "Hitler ye an jesuschrist",
+    "Listening Hitler ye and jesuschrist rn", "Also listening rn Hitler ye and jesuschrist", "Gonna rule all someday\nAs Kanye west the goat",
+    "I am in love whit the nitrous", "I'm in love whit the nitrous", "Reagan wold say vultures 2 Is goated",
+    "Gonna rock a swastika Chain someday as my goat", "Boy dont play whit me you know i am fried", "You are so based yeezy",
+    "How I'm anti-Semitic?\nI just fucked a Jewish bitch\nI just fucked Scooter's bitch and we ran her like Olympics\nGot pregnant in the threesome, so whose baby is it?\nWhose baby is it?",
+    "Too much money to be in the streets\nToo much money to spend all on me\nToo much hate and not enough love\nFree Larry, free Young Thug\nFree Larry, free Young Thug",
+    "She know that i am a bully", "She Wanna Hop in a rari", "Preacherman an rari are +SSS Tier songs",
+    "Kanye new music Is good\nCousins\nFree diddy\nCosby\nTop Tier SSS+ songs\nAlso nitrous", "She like my nazi vibes\nShe now i am a bully",
 ];
 
 const reagan_messages = [
 	"Reagan was the best", "Reagan number 1", "Reagan number 1 president ever", "Reagan turn down the wall", "Trump and Reagan goats", 
 	"Reagan and Trump best presidents ever", "Ronald pls", "https://tenor.com/view/republican-gif-24490147", 
 	"https://tenor.com/view/ronald-reagan-reagan-republican-usa-president-gif-14605911613553531779",
-    "https://youtu.be/4DmnuewuOws?si=vcc46az7vsRR8rLj", "Reagan wold say i win again couse i am the goat as president",
-    "Thanks Reagan  now we have cat birds", "Catbirds are a thing because of Reagan you know?",
+    "https://youtu.be/4DmnuewuOws", "Reagan wold say i win again couse i am the goat as president",
+    "Thanks Reagan  now we have cat birds", "Catbirds are a thing because of Reagan you know?", "Reagan SSS+ president",
+    "Reagan wold say vultures 2 Is goated", "Reagan wold say he have redneck aura", "Reagan Top Tier SSS+ president",
 ];
 
 const nick_messages = [
@@ -272,18 +328,23 @@ const tate_messages = [
     "https://tenor.com/view/andrew-tate-gif-26316329",
 ];
 
+const happy_fucker = [
+    "https://tenor.com/view/sailor-moon-anime-amazed-gif-4474073", "<:cirnoarc:1358517895809990793>", "<:tomokoarc:1358500281956044991>",
+    "<:pekostare:1365786858465919046>", "<:umarucry:1358518905219584120>", "OMG", "Based", "Nice", "Niceee", "Wow", "Pog", "griffith bars",
+    "https://tenor.com/view/squirtle-pokemon-gif-23882585", "YES", "Yesssss", "https://tenor.com/view/sunshine-mario-mario-kart-mario-kart-tour-summer-tours-rule-mario-gif-22350487",
+]
+
 const upset_fucker = [
     "https://tenor.com/view/cry-tear-sad-max-cry-sad-max-gif-8713574713734916", "Nonono", "<:depressed:1358517922938617883>",
     "<:umarucry:1358518905219584120>", "Bruh", "wtf", "stfu", "hater", "This hater", "Chill hater", "The envy", "You envy me",
-    "You Envy me couse i am American", "i am a fascist you Envy me", "You Envy me because i am  a rightchad", "Cope harder",
+    "You Envy me couse i am American", "i am a fascist you Envy me", "You Envy me because i am  a rightchad", "Cope harder", "Cope harder you all",
     "Cope", "cope all", "cope more", "Shut up", "Shut up communist", "Shut up i am white", "https://tenor.com/view/venere-angry-mad-evil-laugh-gif-15340793",
-    "Why you are a leftard", "Fake", "Average zoomer", "Not even clicking if Is playboi carti",
+    "Why you are a leftard", "Fake", "Average zoomer", "Not even clicking if Is playboi carti", "What a horror", "You sick of the head",
 ];
 
+
 const SSSTierOpinions = [
-    "Sabaton albums are top tier sss+",
-    "Reagan Top Tier SSS+ president",
-    "Reagan SSS+ president",
+    "Sabaton albums are top tier sss+", "Reagan Top Tier SSS+ president", "Reagan SSS+ president",
     "Kanye new music Is good\nCousins\nFree diddy\nCosby\nTop Tier SSS+ songs\nAlso nitrous",
     "i like is content of nickavocado eating takis and pizza <:tomoko_cup:1358095740299116614>\nmcdonalds content is SSS+ top tier too",
     "Boil crab\nSSS+ alabamian cousine",
@@ -297,8 +358,18 @@ const SSSTierOpinions = [
     },
 ];
 
+function getAge() {
+    const birthDate = new Date(2002, 10, 19); // 19 November 2002
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 module.exports = {
-    emojis,
     possibleMessages,
     possibleMessages2,
     possibleMessages3,
@@ -306,6 +377,12 @@ module.exports = {
     possibleMessages5,
     possibleMessages6,
     possibleMessages7,
+    possibleMessages8,
+    possibleMessages9,
+    possibleMessages10,
+    possibleMessages11,
+    possibleMessages12,
+    notPossibleMessages,
     griffith_messages,
     kanye_messages,
     reagan_messages,
@@ -315,6 +392,8 @@ module.exports = {
     tate_messages,
     wakeytime,
     sleepytime,
+    happy_fucker,
     upset_fucker,
-    SSSTierOpinions
+    SSSTierOpinions,
+    getAge
 };

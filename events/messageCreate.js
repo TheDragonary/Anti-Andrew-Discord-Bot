@@ -1,13 +1,16 @@
-const { Events, MessageFlags } = require('discord.js');
+const { Events, MessageFlags, AttachmentBuilder } = require('discord.js');
+const path = require('node:path');
+const status = require('../setSleep.js');
 const { generateChatCompletion } = require('../commands/utility/gpt.js');
-const { generateImagePrompt } = require('../commands/utility/gptimage.js');
+const { describeImage, generateImagePrompt } = require('../commands/utility/gptimage.js');
 const { askIfToolIsNeeded } = require('../searchTools.js');
 const { braveSearch } = require('../braveSearch.js');
 const { braveImageSearch } = require('../braveImageSearch.js');
 const { googleImageSearch } = require('../googleImageSearch.js');
 const { findUserIdentity } = require('../userIdentities.js');
 const { messageModel, messageImageModel } = require('../aiSettings.js');
-const { emojis, griffith_messages, kanye_messages, reagan_messages, nick_messages, ksi_messages, mussolini_messages, tate_messages, SSSTierOpinions } = require('../messageDatabase.js');
+const { emojis, griffith_messages, kanye_messages, reagan_messages, nick_messages, ksi_messages, mussolini_messages, tate_messages } = require('../messageDatabase.js');
+const { aiAttachment } = require('../aiAttachments.js');
 
 const gods = [
     { user: 'thedragonary', display: 'dragonary' },
@@ -36,7 +39,6 @@ module.exports = {
         const title = god ? 'god' : 'friend';
 
         const responses = [
-
         ];
 
         const lowerCaseMessage = message.content.toLowerCase();
@@ -44,7 +46,7 @@ module.exports = {
         matchedKeywords.sort((a, b) => lowerCaseMessage.indexOf(a.keyword) - lowerCaseMessage.indexOf(b.keyword));
 
         try {
-             {
+            if (!status.getSleepStatus(message.guild.id)) {
                 for (const { response, response2 } of matchedKeywords) {
                     message.channel.send(response);
                     if (response2) message.channel.send(response2);
@@ -62,17 +64,16 @@ module.exports = {
                     let finalPrompt = prompt;
                     let imageUrl = null;
 
-                    if (message.attachments.size > 0) {
-                        imageUrl = message.attachments.first().url;
-                    } else if (message.reference) {
+                    if (message.attachments.size > 0) imageUrl = message.attachments.first().url;
+                    if (message.reference) {
                         try {
                             const repliedMessage = await message.fetchReference();
                             if (repliedMessage.attachments.size > 0) {
                                 imageUrl = repliedMessage.attachments.first().url;
                             }
                             if (repliedMessage.content) {
-                                finalPrompt = `${repliedMessage.content}\n${prompt}`;
-                                console.log(`Replying with context from previous message. Combined prompt: ${finalPrompt}`);
+                                finalPrompt = `Referenced message from ${repliedMessage.author.username}: ${repliedMessage.content}\nPrompt: ${prompt}`;
+                                console.log(`Replying with context from previous message. ${finalPrompt}`);
                             }
                         } catch (err) {
                             console.error("Failed to fetch referenced message:", err);
@@ -82,27 +83,28 @@ module.exports = {
                     let model = messageModel;
                     let reply;
 
-                    const toolDecision = await askIfToolIsNeeded(finalPrompt, model, imageUrl, generateImagePrompt);
-                    if (toolDecision.startsWith("WEB_SEARCH:")) {
-                        const query = toolDecision.replace("WEB_SEARCH:", "").trim();
-                        const searchResults = await braveSearch(query);
-                        finalPrompt = `User asked: "${prompt}"\n\nRelevant web results:\n${searchResults}`;
-                        console.log(`🔍 Web search used with query: "${query}"\n${searchResults}`);
-                    } else if (toolDecision.startsWith("IMAGE_SEARCH:")) {
-                        const query = toolDecision.replace("IMAGE_SEARCH:", "").trim();
-                        const imageResults = await googleImageSearch(query);
-                        finalPrompt = `User asked: "${prompt}"\n\nRelevant image links:\n${imageResults}`;
-                        console.log(`🖼️ Image search used with query: "${query}"\n${imageResults}`);
-                    } else {
-                        console.log(`No internet tools used.`);
+                    if (!imageUrl) {
+                        const toolDecision = await askIfToolIsNeeded(finalPrompt);
+                        if (toolDecision.startsWith("WEB_SEARCH:")) {
+                            const query = toolDecision.replace("WEB_SEARCH:", "").trim();
+                            const searchResults = await braveSearch(query);
+                            finalPrompt = `User asked: "${prompt}"\n\nRelevant web results:\n${searchResults}`;
+                            console.log(`🔍 Web search used with query: "${query}"\n${searchResults}`);
+                        } else if (toolDecision.startsWith("IMAGE_SEARCH:")) {
+                            const query = toolDecision.replace("IMAGE_SEARCH:", "").trim();
+                            const imageResults = await googleImageSearch(query);
+                            finalPrompt = `User asked: "${prompt}"\n\nRelevant image links:\n${imageResults}`;
+                            console.log(`🖼️ Image search used with query: "${query}"\n${imageResults}`);
+                        } else {
+                            console.log(`No internet tools used.`);
+                        }
                     }
 
                     if (imageUrl) {
                         try {
                             model = messageImageModel;
                             console.log(`Model used: ${model}, Location: ${message.guild.name} - ${message.channel.name}, Prompt: ${prompt}\nImage URL: ${imageUrl}`);
-                            reply = await generateImagePrompt(finalPrompt, imageUrl, model);
-                            console.log(`AI response: ${reply}`);
+                            reply = await generateImagePrompt(finalPrompt, imageUrl);
                         } catch (err) {
                             console.error("Image analysis failed:", err);
                             return message.reply("There was an issue analysing the image. Please try again later.");
@@ -124,7 +126,14 @@ module.exports = {
 					    console.log(`AI response: ${reply}`);
                     }
 
-                    if (reply) message.reply(reply);
+                    const attachments = aiAttachment(reply);
+                    if (reply) {
+                        if (attachments) {
+                            await message.reply({ content: reply, files: attachments });
+                        } else {
+                            await message.reply(reply);
+                        }
+                    }
                 }
             }
         } catch (error) {

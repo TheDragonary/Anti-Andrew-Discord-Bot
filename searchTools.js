@@ -5,21 +5,11 @@ const openai = new OpenAI({
     baseURL: baseURL,
     apiKey: apiKey
 });
+const { gptModel } = require('./aiSettings.js');
 
-module.exports.askIfToolIsNeeded = async function (userPrompt, model, imageUrl = null, generateImagePrompt = null) {
-    let enrichedPrompt = userPrompt;
-
-    if (imageUrl && typeof generateImagePrompt === 'function') {
-        try {
-            const imageDescription = await generateImagePrompt("Describe this image briefly:", imageUrl, model);
-            enrichedPrompt = `${userPrompt}\n\nImage description: ${imageDescription}`;
-        } catch (err) {
-            console.error("Failed to describe image for tool decision:", err);
-        }
-    }
-
+module.exports.askIfToolIsNeeded = async function (prompt) {
     const toolPrompt = `
-		A user asked Andrew bot this: "${enrichedPrompt}". If this prompt contains the bot's name, which is "Andrew", that should not be added to the search.
+		A user asked Andrew bot this: "${prompt}". If this prompt contains the bot's name, which is "Andrew", that should not be added to the search.
 
 		Decide what tool (if any) is needed to answer.
 		- If you need to search the web for context, reply with: WEB_SEARCH: <query>
@@ -30,7 +20,7 @@ module.exports.askIfToolIsNeeded = async function (userPrompt, model, imageUrl =
 	`;
 
     const result = await openai.chat.completions.create({
-        model,
+        model: gptModel,
         messages: [
             { role: 'system', content: "You're an assistant that helps decide when external tools are needed to answer." },
             { role: 'user', content: toolPrompt }

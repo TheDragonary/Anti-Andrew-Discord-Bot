@@ -28,6 +28,7 @@ module.exports = (client) => {
     console.log('  /setguild <GUILD_ID> - Set the target guild');
     console.log('  /setchannel <CHANNEL_ID> - Set the target channel within the current guild');
     console.log('  /send <MESSAGE> - Send a message to the target guild\'s channel');
+    console.log('  /randomtime - Check when the next random message will be sent');
     console.log('  /help - Shows all available terminal commands');
     console.log('  /exit - Exit the terminal interface');
 
@@ -84,14 +85,19 @@ module.exports = (client) => {
             } catch (error) {
                 console.error('Error sending message:', error);
             }
+        } else if (command === '/randomtime') {
+            const minutes = Math.floor((ready.getNextMessageTimestamp() - Date.now()) / 60000);
+            const seconds = Math.floor((ready.getNextMessageTimestamp() - Date.now()) / 1000) % 60;
+            console.log(`Next message will be sent in ${minutes}m ${seconds}s.`);
+            return;
         } else if (command === '/help') {
-            console.log(`Available commands: /setguild, /send, /exit`);
+            console.log(`Available commands: /setguild, /send, /exit, /randomtime`);
             return;
         } else if (command === '/exit') {
             console.log('Exiting terminal interface...');
             rl.close();
         } else {
-            console.log('Unknown command. Available commands: /setguild, /send, /exit');
+            console.log('Unknown command. Available commands: /setguild, /send, /exit, /randomtime');
         }
     });
 };
