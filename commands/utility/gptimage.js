@@ -1,9 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
-const OpenAI = require('openai');
 require('dotenv').config();
-const openai = new OpenAI({
-    baseURL: "https://openrouter.ai/api/v1",
-    apiKey: process.env.OPENROUTER_API_KEY 
+const { baseURL, apiKey, gptimageModel } = require('../../aiSettings.js');
+const OpenAI = require('openai');
+const openai = new OpenAI({ 
+    baseURL,
+    apiKey 
 });
 const content = require('../../characterPrompt.js');
 const { askIfToolIsNeeded } = require('../../searchTools.js');
@@ -30,7 +31,7 @@ module.exports = {
         const imageAttachment = interaction.options.getAttachment('image');
         const imageUrl = imageAttachment.url;
         const prompt = interaction.options.getString('prompt') || "Hey Andrew, describe this image and tell me what you think of this?";
-        const model = 'qwen/qwen2.5-vl-72b-instruct:free';
+        const model = gptimageModel;
 
         await interaction.deferReply();
 

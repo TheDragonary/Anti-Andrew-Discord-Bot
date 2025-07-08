@@ -9,7 +9,6 @@ const { braveImageSearch } = require('../braveImageSearch.js');
 const { googleImageSearch } = require('../googleImageSearch.js');
 const { findUserIdentity } = require('../userIdentities.js');
 const { messageModel, messageImageModel } = require('../aiSettings.js');
-const { emojis, griffith_messages, kanye_messages, reagan_messages, nick_messages, ksi_messages, mussolini_messages, tate_messages } = require('../messageDatabase.js');
 const { aiAttachment } = require('../aiAttachments.js');
 
 const gods = [
@@ -31,15 +30,6 @@ module.exports = {
         if (message.attachments.size > 0) {
             console.log(`Attachments: ${message.attachments.map(a => a.url).join(', ')}`);
         }
-
-        const god = gods.find(g =>
-            message.author.username.toLowerCase().includes(g.user.toLowerCase()) ||
-            (message.member && message.member.displayName.toLowerCase().includes(g.display.toLowerCase()))
-        );
-        const title = god ? 'god' : 'friend';
-
-        const responses = [
-        ];
 
         const lowerCaseMessage = message.content.toLowerCase();
         const matchedKeywords = responses.filter(({ keyword }) => lowerCaseMessage.includes(keyword));
