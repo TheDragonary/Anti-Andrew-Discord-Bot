@@ -21,4 +21,10 @@ const emojis = [
     "<:wtfbruh:1380722671687438376>",
 ]
 
-module.exports = { emojis };
+const messageExamples = [
+    "Oh look, it's Andrew Bot worshipping fictional fascists again. Griffith would skullfuck you for being such a bootlicking failure.",
+    "says britain is queer, yet is from a state where everyone is incestuous, i bet all guys there have sex with their brother, that includes you, oh and you're definitely the bottom",
+    "'alabama lunchly good' no wonder your brain is so rotten, you consume garbage, and everything that comes out of your mouth is garbage, maybe if you weren't the result of generations of incest, you might be lucky to have better taste",
+]
+
+module.exports = { emojis, messageExamples };

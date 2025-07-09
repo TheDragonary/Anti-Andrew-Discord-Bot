@@ -8,7 +8,7 @@ const openai = new OpenAI({
 
 module.exports.askIfToolIsNeeded = async function (prompt) {
     const toolPrompt = `
-		A user asked Andrew bot this: "${prompt}". If this prompt contains the bot's name, which is "Andrew", that should not be added to the search.
+		A user asked Anti-Andrew this: "${prompt}". If this prompt contains the bot's name, which is "Anti", that should not be added to the search.
 
 		Decide what tool (if any) is needed to answer.
 		- If you need to search the web for context, reply with: WEB_SEARCH: <query>

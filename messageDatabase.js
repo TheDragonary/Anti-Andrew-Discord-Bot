@@ -1,4 +1,3 @@
-const { AttachmentBuilder } = require('discord.js');
 const path = require('node:path');
 
 
@@ -153,15 +152,8 @@ const possibleMessages = [
     "Wataland kingdom of falconia",
     "Alabama best state",
     "She like my nazi vibes\nShe now i am a bully",
-    {
-        content: 'Alabamian cousine',
-        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamachicken.jpg'))]
-    },
-    { 
-        content: 'SSS+ burger from alabama\nAlso alabamian tomatoe',
-        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamaburger.jpg'))] 
-    },
-    { files: [new AttachmentBuilder(path.join(__dirname, './media/andrewx.jpg'))] },
+    'Alabamian cousine',
+    'SSS+ burger from alabama\nAlso alabamian tomatoe',
 ];
 
 const possibleMessages2 = [
@@ -241,14 +233,8 @@ const notPossibleMessages = [
     'Alabamian cousine', 'SSS+ burger from alabama\nAlso alabamian tomatoe',
 ];
 
-function getTimedMessage() {
-    return new Date().getUTCHours() < 6 ? 'GN' : new Date().getUTCHours() < 12 ? 'morning' : new Date().getUTCHours() < 22 ? 'hello' : 'GN';
-};
-
 const griffith_messages = [
-    getTimedMessage() + ' all i am Griffith', 'I am prime Griffith', "I am Femto God", "I am Griffith God", "I am Griffith in wataland",
-    { files: [new AttachmentBuilder(path.join(__dirname, './media/griffith.png'))] },
-    { files: [new AttachmentBuilder(path.join(__dirname, './media/griffith2.jpg'))] },
+'hello all i am Griffith', 'I am prime Griffith', "I am Femto God", "I am Griffith God", "I am Griffith in wataland",
 ];
 
 const wakeytime = [
@@ -348,14 +334,6 @@ const SSSTierOpinions = [
     "Kanye new music Is good\nCousins\nFree diddy\nCosby\nTop Tier SSS+ songs\nAlso nitrous",
     "i like is content of nickavocado eating takis and pizza <:tomoko_cup:1358095740299116614>\nmcdonalds content is SSS+ top tier too",
     "Boil crab\nSSS+ alabamian cousine",
-    {
-        content: 'Alabamian cousine',
-        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamachicken.jpg'))]
-    },
-    { 
-        content: 'SSS+ burger from alabama\nAlso alabamian tomatoe',
-        files: [new AttachmentBuilder(path.join(__dirname, './media/alabamaburger.jpg'))] 
-    },
 ];
 
 function getAge() {

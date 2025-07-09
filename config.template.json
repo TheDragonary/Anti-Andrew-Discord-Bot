@@ -1,8 +1,4 @@
 {
     "token": "YOURTOKENHERE",
-    "clientId": "YOURCLIENTID",
-    "channelMap": {
-        "YOURSERVERID": "YOURCHANNELID",
-        "ANOTHERSERVER": "CHANNELID"
-    }
+    "clientId": "YOURCLIENTID"
 }
