@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 const { Events, MessageFlags, AttachmentBuilder } = require('discord.js');
 const path = require('node:path');
-const { generateChatCompletion } = require('../commands/utility/gpt.js');
-const { describeImage, generateImagePrompt } = require('../commands/utility/gptimage.js');
+const { generateChatCompletion } = require('../gpt/utility/gpt.js');
+const { describeImage, generateImagePrompt } = require('../gpt/utility/gptimage.js');
 const { askIfToolIsNeeded } = require('../searchTools.js');
 const { braveSearch } = require('../braveSearch.js');
 const { braveImageSearch } = require('../braveImageSearch.js');
@@ -22,7 +24,9 @@ const gods = [
 module.exports = {
     name: Events.MessageCreate,
     async execute(message) {
-        if (message.author.bot || message.system) return;
+        const isAndrewBot = message.author.bot && message.author.id === (process.env.ANDREW_ID ?? '');
+
+        if ((message.author.bot && !isAndrewBot) || message.system) return;
         if (message.flags.has(MessageFlags.HasSnapshot)) return;
 
         console.log(`Message from ${message.author.tag} in ${message.guild.name} - ${message.channel.name}: ${message.content || '[No text]'}`);
@@ -38,8 +42,9 @@ module.exports = {
             const triggeredByKeyword = triggerWords.some(word => lowerCaseMessage.includes(word));
             const isReplyToBot = message.reference && (await message.fetchReference())?.author?.id === message.client.user.id;
 
-            if (botWasMentioned || triggeredByKeyword || isReplyToBot) {
-                await message.channel.sendTyping();
+
+            if (botWasMentioned || triggeredByKeyword || isReplyToBot || isAndrewBot) {
+            await message.channel.sendTyping();
 
                 let prompt = message.content.replace(/<@!?(\d+)>/, '').trim();
                 let finalPrompt = prompt;

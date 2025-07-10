@@ -30,7 +30,7 @@ module.exports = {
     async execute(interaction) {
         const imageAttachment = interaction.options.getAttachment('image');
         const imageUrl = imageAttachment.url;
-        const prompt = interaction.options.getString('prompt') || "Hey Andrew, describe this image and tell me what you think of this?";
+        const prompt = interaction.options.getString('prompt') || "Hey Anti-Andrew, describe this image and tell me what you think of this?";
         const model = gptimageModel;
 
         await interaction.deferReply();
@@ -77,7 +77,7 @@ module.exports.generateImagePrompt = async function (promptText, imageUrl, model
         const base64 = buffer.toString('base64');
         const base64Url = `data:${mimeType};base64,${base64}`;
 
-        const personaReminder = "Stay in character as Andrew: short, unfiltered. Use 'whit' for 'with', lowercase, short sentences, never paragraphs, no full stops. If confused, use 'how'.";
+        const personaReminder = "Stay in character as Anti-Andrew: Snarky and cocky.  ";
         const fullPrompt = personaReminder + "Describe this image:" + promptText;
 
         const response = await openai.chat.completions.create({
