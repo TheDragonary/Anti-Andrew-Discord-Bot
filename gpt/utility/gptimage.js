@@ -1,18 +1,14 @@
-const { SlashCommandBuilder } = require('discord.js');
-require('dotenv').config();
-const { baseURL, apiKey, gptimageModel } = require('../../aiSettings.js');
+const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
+const { baseURL, apiKey, gptModel, gptimageModel } = require('../../aiSettings.js');
 const OpenAI = require('openai');
-const openai = new OpenAI({ 
-    baseURL,
-    apiKey 
+const openai = new OpenAI({
+    baseURL: baseURL,
+    apiKey: apiKey
 });
 const content = require('../../characterPrompt.js');
-const { askIfToolIsNeeded } = require('../../searchTools.js');
-const { braveSearch } = require('../../braveSearch.js');
-const { braveImageSearch } = require('../../braveImageSearch.js');
-const { googleImageSearch } = require('../../googleImageSearch.js');
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const path = require('path');
+const { aiAttachment } = require('../../aiAttachments.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -36,28 +32,19 @@ module.exports = {
         await interaction.deferReply();
 
         try {
-            const toolDecision = await askIfToolIsNeeded(prompt, model, imageUrl, module.exports.generateImagePrompt);
-            let enrichedPrompt = prompt;
+            console.log(`Model used: ${model}, Location: ${interaction.guild ? `${interaction.guild.name} - ${interaction.channel.name}` : `${interaction.user.username} - DM`}, Prompt: ${prompt}\nImage URL: ${imageUrl}`);
+            const reply = await module.exports.generateImagePrompt(prompt, imageUrl);
 
-            if (toolDecision.startsWith("WEB_SEARCH:")) {
-                const query = toolDecision.replace("WEB_SEARCH:", "").trim();
-                const webResults = await braveSearch(query);
-                enrichedPrompt = `${prompt}\n\nRelevant web results:\n${webResults}`;
-                console.log(`🔍 Web search used with query: "${query}"\n${webResults}`);
-            } else if (toolDecision.startsWith("IMAGE_SEARCH:")) {
-                const query = toolDecision.replace("IMAGE_SEARCH:", "").trim();
-                const imageResults = await googleImageSearch(query);
-                enrichedPrompt = `${prompt}\n\nRelevant image results:\n${imageResults}`;
-                console.log(`🖼️ Image search used with query: "${query}"\n${imageResults}`);
-            } else {
-                console.log("No internet tools used.");
-            }
+            const response = await fetch(imageUrl);
+            const arrayBuffer = await response.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            let ext = path.extname(imageUrl.split('?')[0]).toLowerCase();
+            if (!ext || !['.png', '.jpg', '.jpeg', '.webp', '.gif'].includes(ext)) ext = '.png';
+            const originalImageAttachment = new AttachmentBuilder(buffer, { name: `image${ext}` });
 
-            const reply = await module.exports.generateImagePrompt(enrichedPrompt, imageUrl, model);
-            console.log(`Model used: ${model}, Location: ${interaction.guild ? `${interaction.guild.name} - ${interaction.channel.name}` : `${interaction.user.username} - DM`}`);
-            console.log(`Prompt: ${prompt}, Image URL: ${imageUrl}\nAI response: ${reply}`);
-            await interaction.editReply({ content: reply, files: [imageUrl] });
-
+            const aiAttachments = aiAttachment(reply) || [];
+            
+        await interaction.editReply({ content: reply });
         } catch (err) {
             console.error(err);
             await interaction.editReply("There was a problem analysing the image.");
@@ -65,10 +52,25 @@ module.exports = {
     }
 };
 
-module.exports.generateImagePrompt = async function (promptText, imageUrl, model) {
+module.exports.describeImage = async function (prompt = "Describe this image", imageUrl, model) {
     try {
+        if (prompt == "Hey Anti-Andrew, describe this image and tell me what you think of this?") prompt = "Describe this image";
+        let cleanPrompt;
+        const referencedMatch = prompt.match(/(Referenced message from Andrew:[^\n]*)/i);
+        if (referencedMatch) {
+            const referenced = referencedMatch[1];
+            let rest = prompt.replace(referenced, '');
+            rest = rest.replace(/andrew/gi, '').replace(/\s+/g, ' ').trim();
+            cleanPrompt = `${referenced} ${rest}`.trim();
+        } else {
+            cleanPrompt = prompt.replace(/andrew/gi, '').replace(/\s+/g, ' ').trim();
+            if (cleanPrompt === '' || cleanPrompt === ',') cleanPrompt = 'Describe this image';
+        }
+        console.log(`Prompt: ${cleanPrompt}`);
+
         const responseImg = await fetch(imageUrl);
-        const buffer = await responseImg.buffer();
+        const arrayBuffer = await responseImg.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
         const ext = path.extname(imageUrl).toLowerCase();
         let mimeType = 'image/png';
         if (ext === '.jpg' || ext === '.jpeg') mimeType = 'image/jpeg';
@@ -77,18 +79,42 @@ module.exports.generateImagePrompt = async function (promptText, imageUrl, model
         const base64 = buffer.toString('base64');
         const base64Url = `data:${mimeType};base64,${base64}`;
 
-        const personaReminder = "Stay in character as Anti-Andrew: Snarky and cocky.  ";
-        const fullPrompt = personaReminder + "Describe this image:" + promptText;
-
         const response = await openai.chat.completions.create({
             model,
+            messages: [
+                {
+                    role: 'user',
+                    content: [
+                        { type: 'text', text: cleanPrompt },
+                        { type: 'image_url', image_url: { url: base64Url } }
+                    ]
+                }
+            ],
+            temperature: 0.2
+        });
+
+        return response.choices[0]?.message?.content;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports.generateImagePrompt = async function (prompt, imageUrl) {
+    try {
+        const preresponse = await module.exports.describeImage(prompt, imageUrl, gptimageModel);
+        console.log(`\nResponse from vision model: ${preresponse}\n`);
+
+        const fullPrompt = `Another person has described this image for you, put it in your own words as Anti-Andrew. Keep it short.
+        Here's the description: ${preresponse}\nPrompt: ${prompt}`;
+
+        const response = await openai.chat.completions.create({
+            model: gptModel,
             messages: [
                 { role: 'system', content },
                 {
                     role: 'user',
                     content: [
                         { type: 'text', text: fullPrompt },
-                        { type: 'image_url', image_url: { url: base64Url } }
                     ]
                 }
             ],
@@ -96,6 +122,8 @@ module.exports.generateImagePrompt = async function (promptText, imageUrl, model
         });
 
         const reply = response.choices[0]?.message?.content || "Couldn't describe the image";
+        console.log(`Model used: ${gptModel}\nResponse: ${reply}`);
+
         if (reply.length > 2000) {
             return reply.slice(0, 1997) + '...';
         }
