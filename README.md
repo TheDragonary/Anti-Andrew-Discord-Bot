@@ -37,14 +37,13 @@ First of all, do ``npm install discord.js openai axios dotenv node-fetch``.
 And then rename your ``template.env`` to simply ``.env``. It'll look like this:
 ```js
 DISCORD_TOKEN=0
-CHUTES_API_KEY=0
-OPENROUTER_API_KEY=0
 GEMINI_API_KEY=0
 ANDREW_ID=0
 BRAVE_API_KEY=0
 GOOGLE_API_KEY=0
 GOOGLE_CSE_ID=0
 ```
+
 (Although, if you chose to remove Andrew's integration, then you can just remove ``ANDREW_ID`` entirely. Otherwise, set it to the ID you'll be using for Andrew.)
 
 You should also have a ``config.json`` that looks like this. 
