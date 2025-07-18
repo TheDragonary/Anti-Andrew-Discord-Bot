@@ -24,7 +24,9 @@ const gods = [
 module.exports = {
     name: Events.MessageCreate,
     async execute(message) {
-        const isAndrewBot = message.author.bot && message.author.id === (process.env.ANDREW_ID ?? '');
+    const isAndrewBot = message.author.bot && message.author.id === (process.env.ANDREW_ID ?? '');
+    const isRealAndrew = message.author.id === (process.env.REAL_ANDREW ?? '');
+
 
         if ((message.author.bot && !isAndrewBot) || message.system) return;
         if (message.flags.has(MessageFlags.HasSnapshot)) return;
@@ -43,7 +45,7 @@ module.exports = {
             const isReplyToBot = message.reference && (await message.fetchReference())?.author?.id === message.client.user.id;
 
 
-            if (botWasMentioned || triggeredByKeyword || isReplyToBot || isAndrewBot) {
+            if (botWasMentioned || triggeredByKeyword || isReplyToBot || isAndrewBot || isRealAndrew) {
             await message.channel.sendTyping();
 
                 let prompt = message.content.replace(/<@!?(\d+)>/, '').trim();
