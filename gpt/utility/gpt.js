@@ -1,15 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
-require('dotenv').config();
 const { baseURL, apiKey, gptModel } = require('../../aiSettings.js');
 const OpenAI = require('openai');
-const openai = new OpenAI({ 
-	baseURL,
-    apiKey 
-});
+const openai = new OpenAI({ baseURL, apiKey });
 const content = require('../../characterPrompt.js');
 const { askIfToolIsNeeded } = require('../../searchTools.js');
 const { braveSearch } = require('../../braveSearch.js');
-const { braveImageSearch } = require('../../braveImageSearch.js');
 const { googleImageSearch } = require('../../googleImageSearch.js');
 const { users, findUserIdentity } = require('../../userIdentities.js');
 

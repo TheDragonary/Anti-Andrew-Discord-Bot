@@ -1,10 +1,6 @@
 const OpenAI = require('openai');
-require('dotenv').config();
 const { baseURL, apiKey, gptModel } = require('./aiSettings.js');
-const openai = new OpenAI({ 
-    baseURL,
-    apiKey
-});
+const openai = new OpenAI({ baseURL, apiKey });
 
 module.exports.askIfToolIsNeeded = async function (prompt) {
     const toolPrompt = `

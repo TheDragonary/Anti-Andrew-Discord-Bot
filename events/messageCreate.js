@@ -1,32 +1,18 @@
-require('dotenv').config();
-
-const { Events, MessageFlags, AttachmentBuilder } = require('discord.js');
-const path = require('node:path');
+const { Events, MessageFlags } = require('discord.js');
 const { generateChatCompletion } = require('../gpt/utility/gpt.js');
-const { describeImage, generateImagePrompt } = require('../gpt/utility/gptimage.js');
+const { generateImagePrompt } = require('../gpt/utility/gptimage.js');
 const { askIfToolIsNeeded } = require('../searchTools.js');
 const { braveSearch } = require('../braveSearch.js');
-const { braveImageSearch } = require('../braveImageSearch.js');
 const { googleImageSearch } = require('../googleImageSearch.js');
 const { findUserIdentity } = require('../userIdentities.js');
-const { messageModel, messageImageModel } = require('../aiSettings.js');
+const { gptModel, gptimageModel } = require('../aiSettings.js');
 const { aiAttachment } = require('../aiAttachments.js');
-
-const gods = [
-    { user: 'thedragonary', display: 'dragonary' },
-    { user: 'spookeddoor', display: 'spookeddoor' },
-    { user: 'hellbeyv2', display: 'hellbey' },
-    { user: 'sillyh.', display: 'trinke' },
-    { user: 'nonamebadass', display: 'poncho' },
-    { user: 'marv_mari', display: 'brit' },
-];
 
 module.exports = {
     name: Events.MessageCreate,
     async execute(message) {
-    const isAndrewBot = message.author.bot && message.author.id === (process.env.ANDREW_ID ?? '');
-    const isRealAndrew = message.author.id === (process.env.REAL_ANDREW ?? '');
-
+        const isAndrewBot = message.author.bot && message.author.id === (process.env.ANDREW_ID ?? '');
+        const isRealAndrew = message.author.id === (process.env.REAL_ANDREW ?? '');
 
         if ((message.author.bot && !isAndrewBot) || message.system) return;
         if (message.flags.has(MessageFlags.HasSnapshot)) return;
@@ -43,7 +29,6 @@ module.exports = {
             const triggerWords = ['anti'];
             const triggeredByKeyword = triggerWords.some(word => lowerCaseMessage.includes(word));
             const isReplyToBot = message.reference && (await message.fetchReference())?.author?.id === message.client.user.id;
-
 
             if (botWasMentioned || triggeredByKeyword || isReplyToBot || isAndrewBot || isRealAndrew) {
             await message.channel.sendTyping();
@@ -68,7 +53,7 @@ module.exports = {
                     }
                 }
 
-                let model = messageModel;
+                let model = gptModel;
                 let reply;
 
                 if (!imageUrl) {
@@ -90,7 +75,7 @@ module.exports = {
 
                 if (imageUrl) {
                     try {
-                        model = messageImageModel;
+                        model = gptimageModel;
                         console.log(`Model used: ${model}, Location: ${message.guild.name} - ${message.channel.name}, Prompt: ${prompt}\nImage URL: ${imageUrl}`);
                         reply = await generateImagePrompt(finalPrompt, imageUrl);
                     } catch (err) {

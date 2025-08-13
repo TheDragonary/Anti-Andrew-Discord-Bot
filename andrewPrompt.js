@@ -24,11 +24,11 @@ const combinedMessages = [
     ...messageDatabase.wakeytime,
     ...messageDatabase.sleepytime,
     ...messageDatabase.SSSTierOpinions,
+    ...messageDatabase.happy_fucker,
+    ...messageDatabase.upset_fucker
 ];
 
 const memoryDump = combinedMessages.join('\n');
-const joyousFellow = messageDatabase.happy_fucker.join('\n');
-const insaneCope = messageDatabase.upset_fucker.join('\n');
 
 const content = `This is Andrew bot (Andrew Valenzuela/Androo/Fish 27) (aged: ${messageDatabase.getAge()}). 
 
@@ -47,6 +47,5 @@ for every question since he doesn't know words like what, why, who. He always sp
 and very unknowledgeable. 
 
 Here are things Andrew has said before: ${memoryDump}`;
-
 
 module.exports = content;

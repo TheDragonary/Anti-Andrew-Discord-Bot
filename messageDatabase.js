@@ -1,6 +1,3 @@
-const path = require('node:path');
-
-
 const possibleMessages = [
     "<:tomoko_cup:1358095740299116614>",
     "Hello watafriends",
@@ -327,7 +324,6 @@ const upset_fucker = [
     "Cope", "cope all", "cope more", "Shut up", "Shut up communist", "Shut up i am white", "https://tenor.com/view/venere-angry-mad-evil-laugh-gif-15340793",
     "Why you are a leftard", "Fake", "Average zoomer", "Not even clicking if Is playboi carti", "What a horror", "You sick of the head",
 ];
-
 
 const SSSTierOpinions = [
     "Sabaton albums are top tier sss+", "Reagan Top Tier SSS+ president", "Reagan SSS+ president",

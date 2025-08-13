@@ -1,5 +1,4 @@
 const axios = require('axios');
-require('dotenv').config();
 
 async function braveSearch(query) {
 	const url = `https://api.search.brave.com/res/v1/web/search`;
@@ -18,7 +17,6 @@ async function braveSearch(query) {
 
 		const results = res.data.web?.results || [];
 		if (results.length === 0) return 'No results found.';
-
 		return results.map(r => `🔗 **${r.title}**\n${r.url}`).join('\n\n');
 	} catch (error) {
 		console.error('Brave Search Error:', error.response?.data || error.message);

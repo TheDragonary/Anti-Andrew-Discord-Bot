@@ -1,5 +1,4 @@
 const axios = require('axios');
-require('dotenv').config();
 
 async function googleImageSearch(query) {
   const apiKey = process.env.GOOGLE_API_KEY;
