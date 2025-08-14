@@ -6,7 +6,6 @@ const { braveSearch } = require('../braveSearch.js');
 const { googleImageSearch } = require('../googleImageSearch.js');
 const { findUserIdentity } = require('../userIdentities.js');
 const { gptModel, gptimageModel } = require('../aiSettings.js');
-const { aiAttachment } = require('../aiAttachments.js');
 
 module.exports = {
     name: Events.MessageCreate,
@@ -18,24 +17,26 @@ module.exports = {
         if (message.flags.has(MessageFlags.HasSnapshot)) return;
 
         console.log(`Message from ${message.author.tag} in ${message.guild.name} - ${message.channel.name}: ${message.content || '[No text]'}`);
+
         if (message.attachments.size > 0) {
             console.log(`Attachments: ${message.attachments.map(a => a.url).join(', ')}`);
         }
 
-        const lowerCaseMessage = message.content.toLowerCase();
-
         try {
+            const lowerCaseMessage = message.content.toLowerCase();
             const botWasMentioned = message.mentions.has(message.client.user);
             const triggerWords = ['anti'];
             const triggeredByKeyword = triggerWords.some(word => lowerCaseMessage.includes(word));
             const isReplyToBot = message.reference && (await message.fetchReference())?.author?.id === message.client.user.id;
 
             if (botWasMentioned || triggeredByKeyword || isReplyToBot || isAndrewBot || isRealAndrew) {
-            await message.channel.sendTyping();
+                await message.channel.sendTyping();
 
                 let prompt = message.content.replace(/<@!?(\d+)>/, '').trim();
                 let finalPrompt = prompt;
                 let imageUrl = null;
+                let model = gptModel;
+                let reply;
 
                 if (message.attachments.size > 0) imageUrl = message.attachments.first().url;
                 if (message.reference) {
@@ -52,9 +53,6 @@ module.exports = {
                         console.error("Failed to fetch referenced message:", err);
                     }
                 }
-
-                let model = gptModel;
-                let reply;
 
                 if (!imageUrl) {
                     const toolDecision = await askIfToolIsNeeded(finalPrompt);
@@ -99,14 +97,7 @@ module.exports = {
                     console.log(`AI response: ${reply}`);
                 }
 
-                const attachments = aiAttachment(reply);
-                if (reply) {
-                    if (attachments) {
-                        await message.reply({ content: reply, files: attachments });
-                    } else {
-                        await message.reply(reply);
-                    }
-                }
+                if (reply) await message.reply(reply);
             }
         } catch (error) {
             console.error(error);
