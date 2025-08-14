@@ -1,6 +1,6 @@
 const { Events, MessageFlags } = require('discord.js');
-const { generateChatCompletion } = require('../gpt/utility/gpt.js');
-const { generateImagePrompt } = require('../gpt/utility/gptimage.js');
+const { generateChatCompletion } = require('../gpt/gpt.js');
+const { generateImagePrompt } = require('../gpt/gptimage.js');
 const { askIfToolIsNeeded } = require('../searchTools.js');
 const { braveSearch } = require('../braveSearch.js');
 const { googleImageSearch } = require('../googleImageSearch.js');

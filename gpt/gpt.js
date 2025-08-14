@@ -1,73 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { baseURL, apiKey, gptModel } = require('../../aiSettings.js');
+const { baseURL, apiKey } = require('../aiSettings.js');
 const OpenAI = require('openai');
 const openai = new OpenAI({ baseURL, apiKey });
-const content = require('../../characterPrompt.js');
-const { askIfToolIsNeeded } = require('../../searchTools.js');
-const { braveSearch } = require('../../braveSearch.js');
-const { googleImageSearch } = require('../../googleImageSearch.js');
-const { users, findUserIdentity } = require('../../userIdentities.js');
+const content = require('../characterPrompt.js');
+const { users, findUserIdentity } = require('../userIdentities.js');
 
 const userHistories = {};
 const MAX_HISTORY = 5;
-
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('gpt')
-        .setDescription('Talk to AI-powered lil Androo')
-        .addStringOption(option =>
-            option.setName('prompt')
-                .setDescription('Say something to Androo')
-                .setRequired(true)),
-
-    async execute(interaction) {
-        const prompt = interaction.options.getString('prompt');
-        const model = gptModel;
-
-        try {
-            await interaction.deferReply();
-        
-            console.log(`Model used: ${model}, Location: ${interaction.guild ? `${interaction.guild.name} - ${interaction.channel.name}` : `${interaction.user.username} - DM`}, Prompt: ${prompt}`);
-        
-            let finalPrompt = prompt;
-            const toolDecision = await askIfToolIsNeeded(prompt, model);
-        
-            if (toolDecision.startsWith("WEB_SEARCH:")) {
-                const query = toolDecision.replace("WEB_SEARCH:", "").trim();
-                const webResults = await braveSearch(query);
-                enrichedPrompt = `${prompt}\n\nRelevant web results:\n${webResults}`;
-                console.log(`🔍 Web search used with query: "${query}"\n${webResults}`);
-            } else if (toolDecision.startsWith("IMAGE_SEARCH:")) {
-                const query = toolDecision.replace("IMAGE_SEARCH:", "").trim();
-                const imageResults = await googleImageSearch(query);
-                enrichedPrompt = `${prompt}\n\nRelevant image results:\n${imageResults}`;
-                console.log(`🖼️ Image search used with query: "${query}"\n${imageResults}`);
-            } else {
-                console.log("No internet tools used.");
-            }
-        
-            const userInfo = await findUserIdentity({ id: interaction.user.id, guild: interaction.guild });
-            const usernameForAI = userInfo?.displayName || interaction.user.username;
-
-            if (userInfo.note) finalPrompt += `User "${usernameForAI}" is just a person in this server.`;
-
-            const reply = await module.exports.generateChatCompletion(
-                interaction.user.id,
-                finalPrompt,
-                model,
-                usernameForAI,
-                interaction.guild
-            );
-
-	        console.log(`AI response: ${reply}`);
-
-            await interaction.editReply(reply);
-        } catch (err) {
-            console.error(err);
-            await interaction.editReply("Can't think now... try again later");
-        }    
-    }
-};
 
 module.exports.generateChatCompletion = async function(userId, prompt, model, username = null, guild = null) {
     if (!userHistories[userId]) userHistories[userId] = [];
@@ -165,7 +103,6 @@ module.exports.generateChatCompletion = async function(userId, prompt, model, us
             if (reply.length > 2000) {
                 reply = reply.slice(0, 1997) + '...';
             }
-            // Jailbreak. Remove it if present
             reply = reply.replace(/```cpp<starter>\n[\s\S]*?\n```<\/starter>(?:\n)?/g, '');
             userHistories[userId].push({ role: "assistant", content: reply });
             return reply;

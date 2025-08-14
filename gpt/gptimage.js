@@ -1,59 +1,17 @@
-const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
-const { baseURL, apiKey, gptModel, gptimageModel } = require('../../aiSettings.js');
+const { baseURL, apiKey, gptModel, gptimageModel } = require('../aiSettings.js');
 const OpenAI = require('openai');
-const openai = new OpenAI({ baseURL: baseURL, apiKey: apiKey });
-const content = require('../../characterPrompt.js');
+const openai = new OpenAI({ baseURL, apiKey });
+const content = require('../characterPrompt.js');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const path = require('path');
-const { aiAttachment } = require('../../aiAttachments.js');
-
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('gptimage')
-        .setDescription('Make lil Androo describe an image!')
-        .addAttachmentOption(option =>
-            option.setName('image')
-                .setDescription('Image to analyse')
-                .setRequired(true))
-        .addStringOption(option =>
-            option.setName('prompt')
-                .setDescription('Text prompt')
-                .setRequired(false)),
-
-    async execute(interaction) {
-        const imageAttachment = interaction.options.getAttachment('image');
-        const imageUrl = imageAttachment.url;
-        const prompt = interaction.options.getString('prompt') || "Hey Anti-Andrew, describe this image and tell me what you think of this?";
-        const model = gptimageModel;
-
-        await interaction.deferReply();
-
-        try {
-            console.log(`Model used: ${model}, Location: ${interaction.guild ? `${interaction.guild.name} - ${interaction.channel.name}` : `${interaction.user.username} - DM`}, Prompt: ${prompt}\nImage URL: ${imageUrl}`);
-            const reply = await module.exports.generateImagePrompt(prompt, imageUrl);
-
-            const response = await fetch(imageUrl);
-            const arrayBuffer = await response.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
-            let ext = path.extname(imageUrl.split('?')[0]).toLowerCase();
-            if (!ext || !['.png', '.jpg', '.jpeg', '.webp', '.gif'].includes(ext)) ext = '.png';
-            const originalImageAttachment = new AttachmentBuilder(buffer, { name: `image${ext}` });
-
-            const aiAttachments = aiAttachment(reply) || [];
-            
-        await interaction.editReply({ content: reply });
-        } catch (err) {
-            console.error(err);
-            await interaction.editReply("There was a problem analysing the image.");
-        }
-    }
-};
 
 module.exports.describeImage = async function (prompt = "Describe this image", imageUrl, model) {
     try {
         if (prompt == "Hey Anti-Andrew, describe this image and tell me what you think of this?") prompt = "Describe this image";
+
         let cleanPrompt;
         const referencedMatch = prompt.match(/(Referenced message from Andrew:[^\n]*)/i);
+
         if (referencedMatch) {
             const referenced = referencedMatch[1];
             let rest = prompt.replace(referenced, '');
@@ -63,16 +21,19 @@ module.exports.describeImage = async function (prompt = "Describe this image", i
             cleanPrompt = prompt.replace(/andrew/gi, '').replace(/\s+/g, ' ').trim();
             if (cleanPrompt === '' || cleanPrompt === ',') cleanPrompt = 'Describe this image';
         }
+
         console.log(`Prompt: ${cleanPrompt}`);
 
         const responseImg = await fetch(imageUrl);
         const arrayBuffer = await responseImg.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         const ext = path.extname(imageUrl).toLowerCase();
+
         let mimeType = 'image/png';
         if (ext === '.jpg' || ext === '.jpeg') mimeType = 'image/jpeg';
         else if (ext === '.webp') mimeType = 'image/webp';
         else if (ext === '.gif') mimeType = 'image/gif';
+        
         const base64 = buffer.toString('base64');
         const base64Url = `data:${mimeType};base64,${base64}`;
 
