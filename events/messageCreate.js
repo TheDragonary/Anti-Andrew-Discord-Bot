@@ -47,12 +47,17 @@ module.exports = {
 
                 if (buffer.timer) clearTimeout(buffer.timer);
                 buffer.timer = setTimeout(async () => {
-                    await message.channel.sendTyping();
                     let prompt = buffer.messages.join('\n');
                     let finalPrompt = prompt;
                     let imageUrl = buffer.attachments.length > 0 ? buffer.attachments[0] : null;
                     let model = gptModel;
                     let reply;
+
+                    if (finalPrompt.toLowerCase().includes("hello")) {
+                        return;
+                    }
+                    
+                    await message.channel.sendTyping();
 
                     if (buffer.references.length > 0) {
                         try {
